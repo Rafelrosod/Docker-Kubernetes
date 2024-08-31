@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multi-container-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multi-container-app
+  template:
+    metadata:
+      labels:
+        app: multi-container-app
+    spec:
+      containers:
+        # Frontend
+        - name: frontend-container
+          image: frontend-image:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: "/mnt/data"
+              name: storage
+
+        # Backend
+        - name: backend-container
+          image: backend-image:latest
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: "/mnt/data"
+              name: storage
+
+        # Microservices
+        - name: microservices-container
+          image: microservices-image:latest
+          ports:
+            - containerPort: 8081
+          volumeMounts:
+            - mountPath: "/mnt/data"
+              name: storage
+
+        # Database
+        - name: database-container
+          image: database-image:latest
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: "/mnt/data"
+              name: storage
+
+        # Cache
+        - name: cache-container
+          image: cache-image:latest
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: "/mnt/data"
+              name: storage
+
+        # Voice Management & Speech Recognition
+        - name: voice-management-container
+          image: voice-image:latest
+          ports:
+            - containerPort: 9090
+          volumeMounts:
+            - mountPath: "/mnt/data"
+              name: storage
+
+        # Load Balancer & API Gateway
+        - name: load-balancer-container
+          image: load-balancer-image:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: "/mnt/data"
+              name: storage
+
+        # AI Module
+        - name: ai-module-container
+          image: ai-image:latest
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - mountPath: "/mnt/data"
+              name: storage
+
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: app-pvc
