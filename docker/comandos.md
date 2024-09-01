@@ -41,7 +41,7 @@
 ### 5. Redes
 
 - **_docker network create <nome>:_** Cria uma nova rede.
-- \*\*\*docker network ls: Lista todas as redes.
+- **_docker network ls:_** Lista todas as redes.
 - **_docker network inspect <rede>:_** Exibe informações detalhadas sobre uma rede.
 - **_docker network connect <rede> <container>:_** Conecta um container a uma rede.
 - **_docker network disconnect <rede> <container>:_** Desconecta um container de uma rede.
